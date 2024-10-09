@@ -6,8 +6,11 @@ import { useAppSelector } from '../../hook/redux-hooks';
 import { PokemonSetList } from '../../redux/slices/pokemon';
 import { useFetch } from '../../hook/useFetch';
 import { Pokemon } from '../../model/Pokemon';
+import Card from '../../component/CardPokemon';
 
 const PokedexScreen = () => {
+    const [showDialog, setShowDialog] = useState(false);
+
     const { list } = useAppSelector((store) => store.pokemon);
     const dispatch = useDispatch();
     const { fetchData } = useFetch();
@@ -34,7 +37,12 @@ const PokedexScreen = () => {
             </div>
 
             <div className="pokedex_container">
-                <></>
+                <>
+                    {list.length > 0 &&
+                        list.map((pokemon, index) => (
+                            <Card pokemon={pokemon} key={`PokemonCard${index}`} />
+                        ))}
+                </>
             </div>
         </PokedexScreenWrapper>
     );
