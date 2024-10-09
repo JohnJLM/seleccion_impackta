@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql
+    container_name: pokemon_db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=pokedex
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+    
