@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-
+import { PokemonReducer } from './slices/pokemon';
 
 const appStore = configureStore({
     reducer: {
-         //pokemon: PokemonReducer,
+        pokemon: PokemonReducer.reducer,
     },
     devTools: true,
 });
