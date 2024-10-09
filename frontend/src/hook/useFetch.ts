@@ -5,7 +5,7 @@ interface UseFetchResult {
     fetchData: <B>(
         endpoint: string,
         params?: {
-            method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+            method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
             body?: B;
             headers?: HeadersInit;
         }
@@ -19,7 +19,7 @@ export function useFetch(): UseFetchResult {
         async <B>(
             endpoint: string,
             params?: {
-                method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+                method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
                 body?: B;
                 headers?: HeadersInit;
             }

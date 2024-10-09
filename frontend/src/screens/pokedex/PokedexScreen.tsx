@@ -6,7 +6,8 @@ import { useAppSelector } from '../../hook/redux-hooks';
 import { PokemonSetList } from '../../redux/slices/pokemon';
 import { useFetch } from '../../hook/useFetch';
 import { Pokemon } from '../../model/Pokemon';
-import Card from '../../component/CardPokemon';
+import Card from '../../component/CardPokemon/CardPokemon';
+import DialogCreatePokemon from '../../component/DialogCreatePokemon/DialogCreatePokemon';
 
 const PokedexScreen = () => {
     const [showDialog, setShowDialog] = useState(false);
@@ -22,13 +23,26 @@ const PokedexScreen = () => {
         if (pokemonList) dispatch(PokemonSetList(pokemonList as Pokemon[]));
     };
 
+    const createPokemon = async (pokemon: Pokemon) => {
+        const pokemonCreated = await fetchData('pokemons/create', {
+            method: 'POST',
+            body: pokemon,
+        });
+        if (pokemonCreated) {
+            // Alert
+            window.alert('¡Pokemon creado con exito! ✨');
+            // Actualizamos la lista
+            getList();
+        }
+    };
+
     useEffect(() => {
         getList();
     }, []);
 
     return (
         <PokedexScreenWrapper>
-            <div className="actions_container">
+            <div className="actions_container" onClick={() => setShowDialog(true)}>
                 <img src="/assets/images/add_btn.png" className="action_img" />
             </div>
 
@@ -44,6 +58,11 @@ const PokedexScreen = () => {
                         ))}
                 </>
             </div>
+            <DialogCreatePokemon
+                show={showDialog}
+                closeDialog={() => setShowDialog(false)}
+                onCreatePokemon={(pokemon) => createPokemon(pokemon)}
+            />
         </PokedexScreenWrapper>
     );
 };
